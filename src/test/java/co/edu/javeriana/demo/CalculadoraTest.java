@@ -95,4 +95,45 @@ public class CalculadoraTest {
         assertEquals(0, calculadora.modulo(10, 5),
                 "10 % 5 debe ser 0");
     }
+
+     @Test
+    @DisplayName("Test potencia")
+    public void testPotencia() {
+        assertEquals(8.0, calculadora.potencia(2, 3), 0.001, "2^3 debe ser 8");
+        assertEquals(1.0, calculadora.potencia(5, 0), 0.001, "Cualquier número elevado a 0 debe ser 1");
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> calculadora.potencia(2, -1),
+                "Exponente negativo debe lanzar excepción");
+        assertTrue(exception.getMessage().contains("negativo"));
+    }
+
+    @Test
+    @DisplayName("Test raíz cuadrada")
+    public void testRaizCuadrada() {
+        assertEquals(3.0, calculadora.raizCuadrada(9), 0.001, "Raíz cuadrada de 9 debe ser 3");
+        assertEquals(0.0, calculadora.raizCuadrada(0), 0.001, "Raíz cuadrada de 0 debe ser 0");
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> calculadora.raizCuadrada(-4),
+                "No se puede calcular raíz de número negativo");
+        assertTrue(exception.getMessage().contains("negativo"));
+    }
+
+    @Test
+    @DisplayName("Test factorial")
+    public void testFactorial() {
+        assertEquals(1, calculadora.factorial(0), "0! debe ser 1");
+        assertEquals(120, calculadora.factorial(5), "5! debe ser 120");
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> calculadora.factorial(-3),
+                "Factorial de número negativo debe lanzar excepción");
+        assertTrue(exception.getMessage().contains("negativo"));
+    }
+
+    @Test
+    @DisplayName("Test máximo común divisor (MCD)")
+    public void testMcd() {
+        assertEquals(6, calculadora.mcd(54, 24), "MCD de 54 y 24 debe ser 6");
+        assertEquals(1, calculadora.mcd(17, 5), "MCD de 17 y 5 debe ser 1");
+        assertEquals(10, calculadora.mcd(-20, 30), "MCD con números negativos debe funcionar correctamente");
+    }
 }
