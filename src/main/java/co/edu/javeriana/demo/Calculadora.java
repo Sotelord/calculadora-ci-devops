@@ -61,4 +61,46 @@ public class Calculadora {
         }
         return a % b;
     }
+
+    public double potencia(double base, int exponente) {
+        if (exponente < 0) {
+            throw new IllegalArgumentException("El exponente no puede ser negativo");
+        } else {
+            return Math.pow(base, (double)exponente);
+        }
+    }
+
+    public double raizCuadrada(double numero) {
+        if (numero < (double)0.0F) {
+            throw new IllegalArgumentException("No se puede calcular la raíz cuadrada de un número negativo");
+        } else {
+            return Math.sqrt(numero);
+        }
+    }
+
+    public long factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("No se puede calcular el factorial de un número negativo");
+        } else {
+            long resultado = 1L;
+
+            for(int i = 2; i <= n; ++i) {
+                resultado *= (long)i;
+            }
+
+            return resultado;
+        }
+    }
+
+    public int mcd(int a, int b) {
+        a = Math.abs(a);
+
+        int temp;
+        for(int var5 = Math.abs(b); var5 != 0; a = temp) {
+            temp = var5;
+            var5 = a % var5;
+        }
+
+        return a;
+    }
 }
