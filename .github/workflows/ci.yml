@@ -1,0 +1,61 @@
+name: Java CI con Maven
+
+# Cuándo ejecutar este workflow
+on:
+  push:
+    branches: [ main, develop ] #revise si tiene que cambiar main por master
+  pull_request:
+    branches: [ main ]
+# Permisos necesarios
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build y Test
+    runs-on: ubuntu-latest
+
+    steps:
+    # Paso 1: Descargar el código del repositorio
+    - name: 📥 Checkout del código
+      uses: actions/checkout@v4
+    
+    # Paso 2: Configurar Java JDK 17
+    - name: ☕ Configurar JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    # Paso 3: Compilar el proyecto
+    - name: 🔨 Compilar con Maven
+      run: mvn clean compile
+    
+    # Paso 4: Ejecutar tests
+    - name: 🧪 Ejecutar tests
+      run: mvn test
+    
+    # Paso 5: Generar reporte de tests
+    - name: 📊 Generar reporte de tests
+      if: always()
+      run: mvn surefire-report:report
+    
+    # Paso 6: Generar artefacto JAR
+    - name: 📦 Empaquetar aplicación
+      run: mvn package -DskipTests
+    
+    # Paso 7: Subir el JAR como artefacto
+    - name: 📤 Subir JAR
+      uses: actions/upload-artifact@v4
+      with:
+        name: calculadora-jar
+        path: target/*.jar
+        retention-days: 5
+    
+    # Paso 8: Mensaje de éxito
+    - name: ✅ Build exitoso
+      if: success()
+      run: |
+        echo " ¡Todos los tests pasaron correctamente!"
+        echo " Artefacto JAR generado y disponible"
