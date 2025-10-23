@@ -12,16 +12,18 @@ ions.
 - Build automatizado con Maven
 - Generación de artefactos JAR
 ## 🏗️ Estructura del Proyecto
+```bash
 calculadora-ci/
-├── src/ │
-├── main/java/co/edu/javeriana/demo/ │
-│ └── Calculadora.java
-└── test/java/co/edu/javeriana/demo/ │
-└── CalculadoraTest.java
+├── src/ │ 
+         ├── main/java/co/edu/javeriana/demo/ │
+         │                                    └── Calculadora.java
+         └── test/java/co/edu/javeriana/demo/ │
+                                              └── CalculadoraTest.java
 ├── .github/workflows/ │
-└── ci.yml
+                       └── ci.yml
 ├── pom.xml
 └── README.md
+```
 ## Ejecutar Localmente
 ### Prerequisitos
 - Java JDK 17+
